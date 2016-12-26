@@ -1,15 +1,16 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 #APT
 RUN echo 'deb http://http.debian.net/debian/ jessie main contrib non-free'>>/etc/apt/sources.list ; \
 dpkg --add-architecture i386 ; \
 apt-get -y update ; \
-apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools ; \
-bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 ; \
+apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools \
+bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 curl ; \
 rm -rf /var/lib/apt/lists/*
 
-ENV STEAMER_UPDATED 20160806
+
+ENV STEAMER_UPDATED 20161226
 
 # override these variables in with the prompts
 ENV STEAM_USERNAME anonymous
@@ -30,6 +31,8 @@ chown -R steam. /home/steam
 USER steam
 WORKDIR /home/steam/
 
+RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxvf -
+RUN sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 #USER root
 #ENTRYPOINT ["/bin/bash"]

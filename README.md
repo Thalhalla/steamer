@@ -12,9 +12,6 @@ where you can then install by doing `/assets/steamcmdinstaller3.9.sh`
 
 follow the prompts
 
-you can look for newer scripts [here](https://github.com/Gousaid67/steam-cmd-installer) 
-which is where I found the above steamcmdinstaller3.9.sh
-
 with your game server installed you can then
 replace `assets/steamer.txt` with a custom script of your own,
 and replace `assets/run.sh` with the server command then finally
@@ -24,8 +21,6 @@ and replace `assets/run.sh` with the server command then finally
 ## Caveats
 
 #### old method 
-
--- use the above steamcmdinstaller3.9.sh for an automated walkthrough of getting the steamguard token
 
 Because of the Steam Guard Token. You must get into the VM, login as the steam user and incant `/home/steam/steamcmd/steamcmd.sh`,
 then at the steam prompt type `login $STEAM_USER $STEAM_PASSWORD` with the steam credentials for your dedicated server account 
@@ -56,5 +51,5 @@ http://joshuacox.github.io/steamer/
 
 ### STEAM_GID 
 
-[steam app id
-link](https://developer.valvesoftware.com/wiki/Steam_Application_IDs)
+[steam app id link](https://developer.valvesoftware.com/wiki/Steam_Application_IDs)
+[Dedicated Servers link](https://developer.valvesoftware.com/wiki/Dedicated_Servers_List)
