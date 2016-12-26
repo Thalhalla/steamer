@@ -22,7 +22,6 @@ COPY assets /assets
 RUN chmod 755 /assets/start.sh ; \
 chmod 755 /assets/run.sh ; \
 chmod 755 /assets/steamer.txt ; \
-chmod 755 /assets/steamcmdinstaller3.9.sh ; \
 useradd -m -s /bin/bash steam ; \
 usermod -a -G sudo,video,audio steam ; \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
