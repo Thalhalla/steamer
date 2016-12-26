@@ -53,3 +53,8 @@ http://joshuacox.github.io/steamer/
 
 
 [![Stories in Ready](https://badge.waffle.io/joshuacox/steamer.png?label=ready&title=Ready)](https://waffle.io/joshuacox/steamer)
+
+### STEAM_GID 
+
+[steam app id
+link](https://developer.valvesoftware.com/wiki/Steam_Application_IDs)

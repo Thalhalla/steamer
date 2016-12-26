@@ -120,3 +120,6 @@ homedir: HOMEDIR
 	-@sudo mkdir -p $(HOMEDIR)/.steam
 	-@sudo mkdir -p $(HOMEDIR)/.local
 	-@sudo chown -R 1000:1000 $(HOMEDIR)
+
+csgo:
+	echo '440'>STEAM_GID
