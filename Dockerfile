@@ -6,7 +6,7 @@ RUN echo 'deb http://http.debian.net/debian/ jessie main contrib non-free'>>/etc
 dpkg --add-architecture i386 ; \
 apt-get -y update ; \
 apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools \
-bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 curl ; \
+bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 curl steam; \
 rm -rf /var/lib/apt/lists/*
 
 
