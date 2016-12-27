@@ -1,6 +1,7 @@
 FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
+ENV STEAMER_UPDATED 20161227
 #APT
 RUN echo 'deb http://http.debian.net/debian/ jessie main contrib non-free'>>/etc/apt/sources.list ; \
 dpkg --add-architecture i386 ; \
