@@ -3,12 +3,16 @@ MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 ENV STEAMER_UPDATED 20161227
 #APT
+RUN echo "steam steam/purge note" |  debconf-set-selections
+RUN echo "steam steam/license note" |  debconf-set-selections
+RUN echo "steam steam/question select I AGREE" |  debconf-set-selections 
 RUN echo 'deb http://http.debian.net/debian/ jessie main contrib non-free'>>/etc/apt/sources.list ; \
 dpkg --add-architecture i386 ; \
 apt-get -y update ; \
-yes YES|apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools \
-bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 curl steam; \
-rm -rf /var/lib/apt/lists/*
+apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools \
+bsdmainutils tmux mailutils postfix ca-certificates lib32gcc1 libstdc++6:i386 curl 
+RUN apt-get install -y steam
+RUN rm -rf /var/lib/apt/lists/*
 
 
 ENV STEAMER_UPDATED 20161226
