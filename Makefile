@@ -32,8 +32,11 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE H
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
+	-p 26901:26901/udp \
+	-p 27005:27005/udp \
 	-p 27015:27015 \
 	-p 27015:27015/udp \
+	-p 27020:27020/udp \
 	-v $(TMP):/tmp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
@@ -63,8 +66,11 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	-v $(TMP):/tmp \
+	-p 26901:26901/udp \
+	-p 27005:27005/udp \
 	-p 27015:27015 \
 	-p 27015:27015/udp \
+	-p 27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
