@@ -44,6 +44,7 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE H
 	-v $(HOMEDIR)/Steam:/home/steam/Steam \
 	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/serverfiles:/home/steam/serverfiles \
+	-v $(HOMEDIR)/log:/home/steam/log \
 	-t $(TAG)
 
 installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
@@ -77,6 +78,7 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	-v $(HOMEDIR)/Steam:/home/steam/Steam \
 	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/serverfiles:/home/steam/serverfiles \
+	-v $(HOMEDIR)/log:/home/steam/log \
 	-t $(TAG) /bin/bash
 
 builddocker:

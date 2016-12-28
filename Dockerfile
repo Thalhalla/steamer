@@ -57,4 +57,5 @@ VOLUME /home/steam/steamcmd
 VOLUME /home/steam/Steam
 VOLUME /home/steam/SteamLibrary
 VOLUME /home/steam/serverfiles
+VOLUME /home/steam/log
 CMD ["/bin/bash",  "/assets/start.sh"]
