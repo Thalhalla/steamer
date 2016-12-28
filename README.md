@@ -20,6 +20,15 @@ and replace `assets/run.sh` with the server command then finally
 
 ## Caveats
 
+### GID
+
+You will need to generate a game server login token (GSLT) [here](http://steamcommunity.com/dev/managegameservers)
+
+for CS:GO you must use 730 for the GID, but in this directory the
+STEAM_GID must be 740 I think this is the difference between CSGO itself
+and the CSGO server
+
+
 #### old method 
 
 Because of the Steam Guard Token. You must get into the VM, login as the steam user and incant `/home/steam/steamcmd/steamcmd.sh`,

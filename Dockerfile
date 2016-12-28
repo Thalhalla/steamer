@@ -3,13 +3,10 @@ MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 ENV STEAMER_UPDATED 20161227
 ENV LANG en_US.UTF-8
-ENV LANG en_US.UTF-8  
-ENV LANGUAGE en_US:en 
-ENV LC_ALL en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV DEBIAN_FRONTEND noninteractive
+#ENV LC_ALL en_US.UTF-8
 #APT
-RUN echo "steam steam/purge note" |  debconf-set-selections
-RUN echo "steam steam/license note" |  debconf-set-selections
-RUN echo "steam steam/question select I AGREE" |  debconf-set-selections 
 RUN echo 'deb http://http.debian.net/debian/ stretch main contrib non-free'>>/etc/apt/sources.list ; \
 dpkg --add-architecture i386 ; \
 apt-get -y update ; \
@@ -17,11 +14,15 @@ apt-get install -y locales && \
 locale-gen en_US.UTF-8  && \
 dpkg-reconfigure --frontend=noninteractive locales && \
 sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools \
-mailutils postfix curl wget file gzip bzip2 bsdmainutils python util-linux tmux lib32gcc1 libstdc++6 libstdc++6:i386
-RUN apt-get install -y steam
-RUN rm -rf /var/lib/apt/lists/*
+apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
+mailutils postfix curl wget file gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
+echo "steam steam/purge note" |  debconf-set-selections && \
+echo "steam steam/license note" |  debconf-set-selections && \
+echo "steam steam/question select I AGREE" |  debconf-set-selections && \
+apt-get install -y steam && \
+rm -rf /var/lib/apt/lists/*
 
+ENV DEBIAN_FRONTEND interactive
 
 ENV STEAMER_UPDATED 20161226
 
@@ -48,4 +49,5 @@ RUN sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 #USER root
 #ENTRYPOINT ["/bin/bash"]
+VOLUME /home/steam
 CMD ["/bin/bash",  "/assets/start.sh"]

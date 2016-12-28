@@ -13,7 +13,7 @@ run: builddocker rm HOMEDIR homedir rundocker beep
 
 install: builddocker rm HOMEDIR homedir installdocker
 
-rundocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
+rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
 	$(eval NAME := $(shell cat NAME))	
 	$(eval HOMEDIR := $(shell cat HOMEDIR))	
@@ -21,6 +21,7 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
+	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	-d \
@@ -29,12 +30,15 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	--env STEAM_USERNAME=$(STEAM_USERNAME) \
 	--env STEAM_PASSWORD=$(STEAM_PASSWORD) \
 	--env STEAM_GID=$(STEAM_GID) \
+	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	-v $(TMP):/tmp \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/Steam:/home/steam/Steam \
+	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
+	-v $(HOMEDIR)/workdir:/home/steam/workdir \
 	-t $(TAG)
 
 installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
@@ -45,6 +49,7 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
+	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
 	chmod 777 $(TMP)
 	@docker run --name=steamer \
 	-d \
@@ -53,6 +58,7 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	--env STEAM_USERNAME=$(STEAM_USERNAME) \
 	--env STEAM_PASSWORD=$(STEAM_PASSWORD) \
 	--env STEAM_GID=$(STEAM_GID) \
+	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	-v $(TMP):/tmp \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
@@ -60,6 +66,7 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/Steam:/home/steam/Steam \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
+	-v $(HOMEDIR)/workdir:/home/steam/workdir \
 	-t $(TAG) /bin/bash
 
 builddocker:
@@ -104,7 +111,12 @@ STEAM_GUARD_CODE:
 
 STEAM_GID:
 	@while [ -z "$$STEAM_GID" ]; do \
-		read -r -p "Enter the steam password you wish to associate with this container [STEAM_GID]: " STEAM_GID; echo "$$STEAM_GID">>STEAM_GID; cat STEAM_GID; \
+		read -r -p "Enter the steam game id you wish to associate with this container [STEAM_GID]: " STEAM_GID; echo "$$STEAM_GID">>STEAM_GID; cat STEAM_GID; \
+	done ;
+
+STEAM_GLST:
+	@while [ -z "$$STEAM_GLST" ]; do \
+		read -r -p "Enter the steam glst you wish to associate with this container [STEAM_GLST]: " STEAM_GLST; echo "$$STEAM_GLST">>STEAM_GLST; cat STEAM_GLST; \
 	done ;
 
 STEAM_PASSWORD:
