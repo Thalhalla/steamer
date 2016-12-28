@@ -33,11 +33,11 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE H
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	-v $(TMP):/tmp \
-	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
-	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
-	-v $(HOMEDIR)/Steam:/home/steam/Steam \
+	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
+	-v $(HOMEDIR)/Steam:/home/steam/Steam \
+	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/workdir:/home/steam/workdir \
 	-t $(TAG)
 
@@ -61,11 +61,11 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	-v $(TMP):/tmp \
-	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
-	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
-	-v $(HOMEDIR)/Steam:/home/steam/Steam \
+	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
+	-v $(HOMEDIR)/Steam:/home/steam/Steam \
+	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
 	-v $(HOMEDIR)/workdir:/home/steam/workdir \
 	-t $(TAG) /bin/bash
 
