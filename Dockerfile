@@ -37,7 +37,7 @@ RUN chmod 755 /assets/start.sh ; \
 chmod 755 /assets/run.sh ; \
 chmod 755 /assets/steamer.txt ; \
 useradd -m -s /bin/bash steam ; \
-usermod -a -G sudo,video,audio steam ; \
+usermod -a -G sudo,video,audio,tty steam ; \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
 chown -R steam. /home/steam
 
