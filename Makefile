@@ -9,15 +9,17 @@ help:
 
 build: builddocker
 
-run: builddocker rm HOMEDIR homedir rundocker
+reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP STEAM_GID TAG IP HOMEDIR
 
-install: builddocker rm HOMEDIR homedir installdocker
+run: builddocker rm reqs homedir rundocker
 
-rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
-	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+install: builddocker rm reqs homedir installdocker
+
+rundocker:
 	$(eval NAME := $(shell cat NAME))	
 	$(eval HOMEDIR := $(shell cat HOMEDIR))	
 	$(eval TAG := $(shell cat TAG))
+	$(eval IP := $(shell cat IP))
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
@@ -32,12 +34,11 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE H
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
-	-p 26901:26901/udp \
-	-p 27005:27005/udp \
-	-p 27015:27015 \
-	-p 27015:27015/udp \
-	-p 27020:27020/udp \
-	-v $(TMP):/tmp \
+	-p $(IP):26901:26901/udp \
+	-p $(IP):27005:27005/udp \
+	-p $(IP):27015:27015 \
+	-p $(IP):27015:27015/udp \
+	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
@@ -47,11 +48,11 @@ rundocker: STEAM_USERNAME STEAM_GID STEAM_GLST STEAM_PASSWORD STEAM_GUARD_CODE H
 	-v $(HOMEDIR)/log:/home/steam/log \
 	-t $(TAG)
 
-installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
-	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+installdocker:
 	$(eval NAME := $(shell cat NAME))	
 	$(eval HOMEDIR := $(shell cat HOMEDIR))	
 	$(eval TAG := $(shell cat TAG))
+	$(eval IP := $(shell cat IP))
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
@@ -66,12 +67,11 @@ installdocker: STEAM_USERNAME STEAM_GID STEAM_PASSWORD STEAM_GUARD_CODE HOMEDIR
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
-	-v $(TMP):/tmp \
-	-p 26901:26901/udp \
-	-p 27005:27005/udp \
-	-p 27015:27015 \
-	-p 27015:27015/udp \
-	-p 27020:27020/udp \
+	-p $(IP):26901:26901/udp \
+	-p $(IP):27005:27005/udp \
+	-p $(IP):27015:27015 \
+	-p $(IP):27015:27015/udp \
+	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
@@ -134,6 +134,11 @@ STEAM_GLST:
 STEAM_PASSWORD:
 	@while [ -z "$$STEAM_PASSWORD" ]; do \
 		read -r -p "Enter the steam password you wish to associate with this container [STEAM_PASSWORD]: " STEAM_PASSWORD; echo "$$STEAM_PASSWORD">>STEAM_PASSWORD; cat STEAM_PASSWORD; \
+	done ;
+
+IP:
+	@while [ -z "$$IP" ]; do \
+		read -r -p "Enter the IP Address you wish to assign to this container [IP]: " IP; echo "$$IP">>IP; cat IP; \
 	done ;
 
 homedir: HOMEDIR
