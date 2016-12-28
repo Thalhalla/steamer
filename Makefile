@@ -7,9 +7,9 @@ help:
 	@echo ""  This is merely a base image for usage read the README file
 	@echo ""   1. make run       - build and run docker container
 
-build: builddocker beep
+build: builddocker
 
-run: builddocker rm HOMEDIR homedir rundocker beep
+run: builddocker rm HOMEDIR homedir rundocker
 
 install: builddocker rm HOMEDIR homedir installdocker
 
