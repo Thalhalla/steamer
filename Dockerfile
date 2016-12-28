@@ -41,6 +41,8 @@ usermod -a -G sudo,video,audio steam ; \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
 chown -R steam. /home/steam
 
+RUN locale-gen
+
 USER steam
 WORKDIR /home/steam/
 
