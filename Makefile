@@ -11,9 +11,9 @@ build: builddocker
 
 reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP STEAM_GID TAG IP HOMEDIR
 
-run: builddocker rm reqs homedir rundocker
+run: rm reqs homedir rundocker
 
-install: builddocker rm reqs homedir installdocker
+install: rm reqs homedir installdocker
 
 rundocker:
 	$(eval NAME := $(shell cat NAME))	
@@ -142,7 +142,7 @@ IP:
 	done ;
 
 homedir: HOMEDIR
-	$(eval HOMEDIR := $(shell cat HOMEDIR))	
+	$(eval HOMEDIR := $(shell cat HOMEDIR))
 	-@sudo mkdir -p $(HOMEDIR)/SteamLibrary/steamapps
 	-@sudo mkdir -p $(HOMEDIR)/Steam
 	-@sudo mkdir -p $(HOMEDIR)/steamcmd
@@ -152,3 +152,7 @@ homedir: HOMEDIR
 
 csgo:
 	echo '440'>STEAM_GID
+
+pull:
+	$(eval TAG := $(shell cat TAG))
+	docker pull $(TAG)

@@ -1,7 +1,7 @@
 FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
-ENV STEAMER_UPDATED 20161227
+ENV STEAMER_UPDATED 20161229
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,9 +11,9 @@ RUN echo 'deb http://http.debian.net/debian/ stretch main contrib non-free'>>/et
 dpkg --add-architecture i386 ; \
 apt-get -y update ; \
 apt-get install -y locales && \
-locale-gen en_US.UTF-8  && \
 dpkg-reconfigure --frontend=noninteractive locales && \
 sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+locale-gen && \
 apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
 libcurl4-gnutls-dev:i386 build-essential gdb mailutils postfix curl wget file gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
 echo "steam steam/purge note" |  debconf-set-selections && \
@@ -23,8 +23,6 @@ apt-get install -y steam && \
 rm -rf /var/lib/apt/lists/*
 
 ENV DEBIAN_FRONTEND interactive
-
-ENV STEAMER_UPDATED 20161226
 
 # override these variables in with the prompts
 ENV STEAM_USERNAME anonymous
