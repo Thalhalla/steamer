@@ -9,17 +9,18 @@ help:
 
 build: builddocker
 
-reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP STEAM_GID TAG IP HOMEDIR
+reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP PORT STEAM_GID TAG IP HOMEDIR
 
-run: rm reqs homedir rundocker
+run: reqs rm homedir rundocker
 
-install: rm reqs homedir installdocker
+install: reqs rm homedir installdocker
 
 rundocker:
 	$(eval NAME := $(shell cat NAME))	
 	$(eval HOMEDIR := $(shell cat HOMEDIR))	
 	$(eval TAG := $(shell cat TAG))
 	$(eval IP := $(shell cat IP))
+	$(eval PORT := $(shell cat PORT))
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
@@ -37,8 +38,8 @@ rundocker:
 	--env IP=$(IP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
-	-p $(IP):27015:27015 \
-	-p $(IP):27015:27015/udp \
+	-p $(IP):$(PORT):$(PORT) \
+	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
@@ -54,6 +55,7 @@ installdocker:
 	$(eval HOMEDIR := $(shell cat HOMEDIR))	
 	$(eval TAG := $(shell cat TAG))
 	$(eval IP := $(shell cat IP))
+	$(eval PORT := $(shell cat PORT))
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
@@ -71,8 +73,8 @@ installdocker:
 	--env IP=$(IP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
-	-p $(IP):27015:27015 \
-	-p $(IP):27015:27015/udp \
+	-p $(IP):$(PORT):$(PORT) \
+	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
@@ -141,6 +143,11 @@ STEAM_PASSWORD:
 IP:
 	@while [ -z "$$IP" ]; do \
 		read -r -p "Enter the IP Address you wish to assign to this container [IP]: " IP; echo "$$IP">>IP; cat IP; \
+	done ;
+
+PORT:
+	@while [ -z "$$PORT" ]; do \
+		read -r -p "Enter the PORT Address you wish to assign to this container [PORT]: " PORT; echo "$$PORT">>PORT; cat PORT; \
 	done ;
 
 homedir: HOMEDIR
