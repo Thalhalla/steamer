@@ -34,6 +34,7 @@ rundocker:
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
+	--env IP=$(IP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
 	-p $(IP):27015:27015 \
@@ -67,6 +68,7 @@ installdocker:
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
+	--env IP=$(IP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
 	-p $(IP):27015:27015 \
