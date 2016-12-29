@@ -16,7 +16,7 @@ sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen && \
 apt-get install -y sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
 libcurl4-gnutls-dev:i386 build-essential gdb mailutils postfix curl wget file \
-lib32ncurses5 lib32bz2-1.0 lib32asound2  \
+lib32ncurses5 libasound2  \
 gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
 echo "steam steam/purge note" |  debconf-set-selections && \
 echo "steam steam/license note" |  debconf-set-selections && \
