@@ -16,8 +16,8 @@ run: reqs rm homedir rundocker
 install: reqs rm homedir installdocker
 
 rundocker:
-	$(eval NAME := $(shell cat NAME))	
-	$(eval HOMEDIR := $(shell cat HOMEDIR))	
+	$(eval NAME := $(shell cat NAME))
+	$(eval HOMEDIR := $(shell cat HOMEDIR))
 	$(eval TAG := $(shell cat TAG))
 	$(eval IP := $(shell cat IP))
 	$(eval PORT := $(shell cat PORT))
@@ -36,11 +36,12 @@ rundocker:
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
+	--env PORT=$(PORT) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
+	-p $(IP):27020:27020/udp \
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
-	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR)/.local:/home/steam/.steam \
 	-v $(HOMEDIR)/.steam:/home/steam/.local \
 	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
@@ -71,6 +72,7 @@ installdocker:
 	--env STEAM_GLST=$(STEAM_GLST) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
+	--env PORT=$(PORT) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
 	-p $(IP):$(PORT):$(PORT) \
@@ -147,7 +149,7 @@ IP:
 
 PORT:
 	@while [ -z "$$PORT" ]; do \
-		read -r -p "Enter the PORT Address you wish to assign to this container [PORT]: " PORT; echo "$$PORT">>PORT; cat PORT; \
+		read -r -p "Enter the PORT Address you wish to assign to this container (27015) [PORT]: " PORT; echo "$$PORT">>PORT; cat PORT; \
 	done ;
 
 homedir: HOMEDIR
