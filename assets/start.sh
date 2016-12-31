@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sudo chown -R steam. /home/steam
+mkdir /home/steam/serverfiles/csgo_ds
+
 cp /assets/steamer.txt /home/steam/
 cd /home/steam
 sed -i "s/REPLACEME_USERNAME/$STEAM_USERNAME/" steamer.txt
