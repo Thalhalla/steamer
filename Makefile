@@ -9,7 +9,7 @@ help:
 
 build: builddocker
 
-reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP PORT STEAM_GID TAG IP HOMEDIR
+reqs: STEAM_USERNAME STEAM_PASSWD STEAM_GLST IP PORT STEAM_GID TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
 
 run: reqs rm homedir rundocker
 
@@ -25,6 +25,10 @@ rundocker:
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
 	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
+	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
+	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
+	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
+	$(eval CS_INITIAL_MAP := $(shell cat CS_INITIAL_MAP))
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	-d \
@@ -37,6 +41,10 @@ rundocker:
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
+	--env CS_GAME_TYPE=$(CS_GAME_TYPE) \
+	--env CS_GAME_MODE=$(CS_GAME_MODE) \
+	--env CS_MAP_GROUP=$(CS_MAP_GROUP) \
+	--env CS_INITIAL_MAP=$(CS_INITIAL_MAP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
 	-p $(IP):27020:27020/udp \
@@ -61,6 +69,10 @@ installdocker:
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
 	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
+	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
+	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
+	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
+	$(eval CS_INITIAL_MAP := $(shell cat CS_INITIAL_MAP))
 	chmod 777 $(TMP)
 	@docker run --name=steamer \
 	-d \
@@ -73,6 +85,10 @@ installdocker:
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
+	--env CS_GAME_TYPE=$(CS_GAME_TYPE) \
+	--env CS_GAME_MODE=$(CS_GAME_MODE) \
+	--env CS_MAP_GROUP=$(CS_MAP_GROUP) \
+	--env CS_INITIAL_MAP=$(CS_INITIAL_MAP) \
 	-p $(IP):26901:26901/udp \
 	-p $(IP):27005:27005/udp \
 	-p $(IP):$(PORT):$(PORT) \
@@ -150,6 +166,26 @@ IP:
 PORT:
 	@while [ -z "$$PORT" ]; do \
 		read -r -p "Enter the PORT Address you wish to assign to this container (27015) [PORT]: " PORT; echo "$$PORT">>PORT; cat PORT; \
+	done ;
+
+CS_GAME_TYPE:
+	@while [ -z "$$CS_GAME_TYPE" ]; do \
+		read -r -p "Enter the CS_GAME_TYPE Address you wish to assign to this container [CS_GAME_TYPE]: " CS_GAME_TYPE; echo "$$CS_GAME_TYPE">>CS_GAME_TYPE; cat CS_GAME_TYPE; \
+	done ;
+
+CS_GAME_MODE:
+	@while [ -z "$$CS_GAME_MODE" ]; do \
+		read -r -p "Enter the CS_GAME_MODE Address you wish to assign to this container [CS_GAME_MODE]: " CS_GAME_MODE; echo "$$CS_GAME_MODE">>CS_GAME_MODE; cat CS_GAME_MODE; \
+	done ;
+
+CS_MAP_GROUP:
+	@while [ -z "$$CS_MAP_GROUP" ]; do \
+		read -r -p "Enter the CS_MAP_GROUP Address you wish to assign to this container [CS_MAP_GROUP]: " CS_MAP_GROUP; echo "$$CS_MAP_GROUP">>CS_MAP_GROUP; cat CS_MAP_GROUP; \
+	done ;
+
+CS_INITIAL_MAP:
+	@while [ -z "$$CS_INITIAL_MAP" ]; do \
+		read -r -p "Enter the CS_INITIAL_MAP Address you wish to assign to this container [CS_INITIAL_MAP]: " CS_INITIAL_MAP; echo "$$CS_INITIAL_MAP">>CS_INITIAL_MAP; cat CS_INITIAL_MAP; \
 	done ;
 
 homedir: HOMEDIR
