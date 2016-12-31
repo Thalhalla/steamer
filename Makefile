@@ -29,7 +29,6 @@ rundocker:
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
 	$(eval CS_INITIAL_MAP := $(shell cat CS_INITIAL_MAP))
-	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	-d \
 	--cidfile="steamerCID" \
@@ -73,7 +72,6 @@ installdocker:
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
 	$(eval CS_INITIAL_MAP := $(shell cat CS_INITIAL_MAP))
-	chmod 777 $(TMP)
 	@docker run --name=steamer \
 	-d \
 	--cidfile="steamerCID" \
