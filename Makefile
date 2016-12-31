@@ -180,12 +180,12 @@ CS_GAME_MODE:
 
 CS_MAP_GROUP:
 	@while [ -z "$$CS_MAP_GROUP" ]; do \
-		read -r -p "Enter the CS_MAP_GROUP Address you wish to assign to this container [CS_MAP_GROUP]: " CS_MAP_GROUP; echo "$$CS_MAP_GROUP">>CS_MAP_GROUP; cat CS_MAP_GROUP; \
+		read -r -p "Enter the CS_MAP_GROUP Address you wish to assign to this container (mg_demolition) [CS_MAP_GROUP]: " CS_MAP_GROUP; echo "$$CS_MAP_GROUP">>CS_MAP_GROUP; cat CS_MAP_GROUP; \
 	done ;
 
 CS_INITIAL_MAP:
 	@while [ -z "$$CS_INITIAL_MAP" ]; do \
-		read -r -p "Enter the CS_INITIAL_MAP Address you wish to assign to this container [CS_INITIAL_MAP]: " CS_INITIAL_MAP; echo "$$CS_INITIAL_MAP">>CS_INITIAL_MAP; cat CS_INITIAL_MAP; \
+		read -r -p "Enter the CS_INITIAL_MAP Address you wish to assign to this container (de_lake) [CS_INITIAL_MAP]: " CS_INITIAL_MAP; echo "$$CS_INITIAL_MAP">>CS_INITIAL_MAP; cat CS_INITIAL_MAP; \
 	done ;
 
 homedir: HOMEDIR
