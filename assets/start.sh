@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo chown -R steam. /home/steam
-mkdir /home/steam/serverfiles/csgo_ds
+mkdir -p /home/steam/serverfiles/csgo_ds
 
 cp /assets/steamer.txt /home/steam/
 cd /home/steam
