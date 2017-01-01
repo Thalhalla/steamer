@@ -9,7 +9,7 @@ help:
 
 build: builddocker
 
-reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GLST IP PORT STEAM_GID TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
+reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GSLT IP PORT STEAM_GID TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
 
 run: reqs rm homedir rundocker
 
@@ -24,7 +24,7 @@ rundocker:
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
-	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
+	$(eval STEAM_GSLT := $(shell cat STEAM_GSLT))
 	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
@@ -36,7 +36,7 @@ rundocker:
 	--env STEAM_USERNAME=$(STEAM_USERNAME) \
 	--env STEAM_PASSWORD=$(STEAM_PASSWORD) \
 	--env STEAM_GID=$(STEAM_GID) \
-	--env STEAM_GLST=$(STEAM_GLST) \
+	--env STEAM_GSLT=$(STEAM_GSLT) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
@@ -67,7 +67,7 @@ installdocker:
 	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
-	$(eval STEAM_GLST := $(shell cat STEAM_GLST))
+	$(eval STEAM_GSLT := $(shell cat STEAM_GSLT))
 	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
@@ -79,7 +79,7 @@ installdocker:
 	--env STEAM_USERNAME=$(STEAM_USERNAME) \
 	--env STEAM_PASSWORD=$(STEAM_PASSWORD) \
 	--env STEAM_GID=$(STEAM_GID) \
-	--env STEAM_GLST=$(STEAM_GLST) \
+	--env STEAM_GSLT=$(STEAM_GSLT) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
@@ -146,9 +146,9 @@ STEAM_GID:
 		read -r -p "Enter the steam game id you wish to associate with this container [STEAM_GID]: " STEAM_GID; echo "$$STEAM_GID">>STEAM_GID; cat STEAM_GID; \
 	done ;
 
-STEAM_GLST:
-	@while [ -z "$$STEAM_GLST" ]; do \
-		read -r -p "Enter the steam glst you wish to associate with this container [STEAM_GLST]: " STEAM_GLST; echo "$$STEAM_GLST">>STEAM_GLST; cat STEAM_GLST; \
+STEAM_GSLT:
+	@while [ -z "$$STEAM_GSLT" ]; do \
+		read -r -p "Enter the steam GSLT you wish to associate with this container [STEAM_GSLT]: " STEAM_GSLT; echo "$$STEAM_GSLT">>STEAM_GSLT; cat STEAM_GSLT; \
 	done ;
 
 STEAM_PASSWORD:
