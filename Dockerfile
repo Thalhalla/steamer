@@ -1,7 +1,7 @@
 FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
-ENV STEAMER_UPDATED 20161229
+ENV STEAMER_UPDATED 20170103
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -51,11 +51,5 @@ RUN sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 #USER root
 #ENTRYPOINT ["/bin/bash"]
-VOLUME /home/steam/.steam
-VOLUME /home/steam/.local
-VOLUME /home/steam/steamcmd
-VOLUME /home/steam/Steam
-VOLUME /home/steam/SteamLibrary
-VOLUME /home/steam/serverfiles
-VOLUME /home/steam/log
+VOLUME /home/steam/
 CMD ["/bin/bash",  "/assets/start.sh"]
