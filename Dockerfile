@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM ubuntu:xenial
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 ENV LANG en_US.UTF-8
@@ -12,7 +12,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV STEAMER_UPDATED 20170104
 #ENV LC_ALL en_US.UTF-8
 #APT
-RUN echo 'deb http://http.debian.net/debian/ stretch main contrib non-free'>>/etc/apt/sources.list ; \
+COPY sources.list /etc/apt/sources.list.d/thalhalla.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 ; \
 dpkg --add-architecture i386 ; \
 apt-get -yqq update ; \
 apt-get install -yqq locales && \
@@ -21,17 +22,17 @@ sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen && \
 apt-get install -yqq sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
 libcurl4-gnutls-dev:i386 build-essential gdb mailutils postfix curl wget file \
-lib32ncurses5 libasound2  \
+lib32ncurses5 libasound2 fail2ban \
 gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
-echo "steam steam/purge note" |  debconf-set-selections && \
-echo "steam steam/license note" |  debconf-set-selections && \
-echo "steam steam/question select I AGREE" |  debconf-set-selections && \
 rm -rf /var/lib/apt/lists/*
 # End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
 
-# parking lot for old lines
-# apt-get install -yqq steam && \
+# parking lot
+# echo "steam steam/purge note" |  debconf-set-selections && \
+# echo "steam steam/license note" |  debconf-set-selections && \
+# echo "steam steam/question select I AGREE" |  debconf-set-selections && \
+# apt-get install -yqq steam steamcmd && \
 
 # and override this file with the command to start your server
 COPY assets /assets
@@ -46,7 +47,7 @@ mkdir -p /opt/steamer ; \
 locale-gen
 
 WORKDIR /opt/steamer/
-RUN wget 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' ; \
+RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' ; \
 tar zxf steamcmd_linux.tar.gz ; \
 sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
