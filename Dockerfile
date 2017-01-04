@@ -22,16 +22,16 @@ sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen && \
 apt-get install -yqq sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
 libcurl4-gnutls-dev:i386 build-essential gdb mailutils postfix curl wget file \
-lib32ncurses5 libasound2  \
+lib32ncurses5 libasound2 steamcmd \
 gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
-echo "steam steam/purge note" |  debconf-set-selections && \
-echo "steam steam/license note" |  debconf-set-selections && \
-echo "steam steam/question select I AGREE" |  debconf-set-selections && \
 rm -rf /var/lib/apt/lists/*
 # End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
 
 # parking lot
+# echo "steam steam/purge note" |  debconf-set-selections && \
+# echo "steam steam/license note" |  debconf-set-selections && \
+# echo "steam steam/question select I AGREE" |  debconf-set-selections && \
 # apt-get install -yqq steam && \
 
 # and override this file with the command to start your server
