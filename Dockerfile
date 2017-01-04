@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 ENV LANG en_US.UTF-8
