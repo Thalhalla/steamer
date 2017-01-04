@@ -13,7 +13,7 @@ ENV STEAMER_UPDATED 20170104
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
-RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 ; \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 ; \
 dpkg --add-architecture i386 ; \
 apt-get -yqq update ; \
 apt-get install -yqq locales && \
