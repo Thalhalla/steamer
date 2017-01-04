@@ -49,13 +49,7 @@ rundocker:
 	-p $(IP):27020:27020/udp \
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
-	-v $(HOMEDIR)/.local:/home/steam/.steam \
-	-v $(HOMEDIR)/.steam:/home/steam/.local \
-	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
-	-v $(HOMEDIR)/Steam:/home/steam/Steam \
-	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
-	-v $(HOMEDIR)/serverfiles:/home/steam/serverfiles \
-	-v $(HOMEDIR)/log:/home/steam/log \
+	-v $(HOMEDIR):/home/steam \
 	-t $(TAG)
 
 installdocker:
@@ -92,13 +86,7 @@ installdocker:
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
-	-v $(HOMEDIR)/.local:/home/steam/.steam \
-	-v $(HOMEDIR)/.steam:/home/steam/.local \
-	-v $(HOMEDIR)/Steam:/home/steam/steamcmd \
-	-v $(HOMEDIR)/Steam:/home/steam/Steam \
-	-v $(HOMEDIR)/SteamLibrary:/home/steam/SteamLibrary \
-	-v $(HOMEDIR)/serverfiles:/home/steam/serverfiles \
-	-v $(HOMEDIR)/log:/home/steam/log \
+	-v $(HOMEDIR):/home/steam \
 	-t $(TAG) /bin/bash
 
 builddocker:
