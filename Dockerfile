@@ -26,12 +26,10 @@ gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstd
 echo "steam steam/purge note" |  debconf-set-selections && \
 echo "steam steam/license note" |  debconf-set-selections && \
 echo "steam steam/question select I AGREE" |  debconf-set-selections && \
+apt-get install -yqq steam && \
 rm -rf /var/lib/apt/lists/*
 # End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
-
-# parking lot for old lines
-# apt-get install -yqq steam && \
 
 # and override this file with the command to start your server
 COPY assets /assets
