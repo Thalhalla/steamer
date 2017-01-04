@@ -1,10 +1,10 @@
 FROM debian:stretch
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
-ENV STEAMER_UPDATED 20170103
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
+ENV STEAMER_UPDATED 20170104
 #ENV LC_ALL en_US.UTF-8
 #APT
 RUN echo 'deb http://http.debian.net/debian/ stretch main contrib non-free'>>/etc/apt/sources.list ; \
@@ -46,8 +46,8 @@ RUN locale-gen
 USER steam
 WORKDIR /home/steam/
 
-RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxvf -
-RUN sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
+RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxvf - ; \
+sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 #USER root
 #ENTRYPOINT ["/bin/bash"]
