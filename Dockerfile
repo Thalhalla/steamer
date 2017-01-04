@@ -3,6 +3,11 @@ MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
+# override these variables in with the prompts
+ENV STEAM_USERNAME anonymous
+ENV STEAM_PASSWORD ' '
+
+# Start non-interactive apt
 ENV DEBIAN_FRONTEND noninteractive
 ENV STEAMER_UPDATED 20170104
 #ENV LC_ALL en_US.UTF-8
@@ -21,15 +26,12 @@ gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstd
 echo "steam steam/purge note" |  debconf-set-selections && \
 echo "steam steam/license note" |  debconf-set-selections && \
 echo "steam steam/question select I AGREE" |  debconf-set-selections && \
-apt-get install -yqq steam && \
 rm -rf /var/lib/apt/lists/*
-
+# End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
 
-# override these variables in with the prompts
-ENV STEAM_USERNAME anonymous
-ENV STEAM_PASSWORD ' '
-
+# parking lot for old lines
+# apt-get install -yqq steam && \
 
 # and override this file with the command to start your server
 COPY assets /assets
@@ -39,15 +41,17 @@ chmod 755 /assets/steamer.txt ; \
 useradd -m -s /bin/bash steam ; \
 usermod -a -G sudo,video,audio,tty steam ; \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
-chown -R steam. /home/steam
+chown -R steam. /home/steam ; \
+mkdir -p /opt/steamer ; \
+locale-gen
 
-RUN locale-gen
+WORKDIR /opt/steamer/
+RUN wget 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' ; \
+tar zxf steamcmd_linux.tar.gz ; \
+sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 USER steam
 WORKDIR /home/steam/
-
-RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxvf - ; \
-sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 #USER root
 #ENTRYPOINT ["/bin/bash"]
