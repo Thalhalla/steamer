@@ -47,9 +47,10 @@ mkdir -p /opt/steamer ; \
 locale-gen
 
 WORKDIR /opt/steamer/
-RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' ; \
-tar zxf steamcmd_linux.tar.gz ; \
-sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
+RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz'
+
+# tar zxf steamcmd_linux.tar.gz ; \
+# sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 USER steam
 WORKDIR /home/steam/
