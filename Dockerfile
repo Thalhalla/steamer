@@ -44,6 +44,7 @@ usermod -a -G sudo,video,audio,tty steam ; \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
 chown -R steam. /home/steam ; \
 mkdir -p /opt/steamer ; \
+chown -R steam. /opt/steamer ; \
 locale-gen
 
 WORKDIR /opt/steamer/
