@@ -13,9 +13,9 @@ ENV STEAMER_UPDATED 20170104
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 ; \
-dpkg --add-architecture i386 ; \
-apt-get -yqq update ; \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 && \
+dpkg --add-architecture i386 && \
+apt-get -yqq update && \
 apt-get install -yqq locales && \
 dpkg-reconfigure --frontend=noninteractive locales && \
 sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -36,21 +36,21 @@ ENV DEBIAN_FRONTEND interactive
 
 # and override this file with the command to start your server
 COPY assets /assets
-RUN chmod 755 /assets/start.sh ; \
-chmod 755 /assets/run.sh ; \
-chmod 755 /assets/steamer.txt ; \
-useradd -m -s /bin/bash steam ; \
-usermod -a -G sudo,video,audio,tty steam ; \
-echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers ; \
-chown -R steam. /home/steam ; \
-mkdir -p /opt/steamer ; \
-chown -R steam. /opt/steamer ; \
+RUN chmod 755 /assets/start.sh && \
+chmod 755 /assets/run.sh && \
+chmod 755 /assets/steamer.txt && \
+useradd -m -s /bin/bash steam && \
+usermod -a -G sudo,video,audio,tty steam && \
+echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
+chown -R steam. /home/steam && \
+mkdir -p /opt/steamer && \
+chown -R steam. /opt/steamer && \
 locale-gen
 
 WORKDIR /opt/steamer/
-RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz'
+RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' && \
+tar zxf steamcmd_linux.tar.gz
 
-# tar zxf steamcmd_linux.tar.gz ; \
 # sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
 USER steam
