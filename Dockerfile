@@ -48,8 +48,7 @@ chown -R steam. /opt/steamer && \
 locale-gen
 
 WORKDIR /opt/steamer/
-RUN wget -q 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' && \
-tar zxf steamcmd_linux.tar.gz
+RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxf -
 
 # sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
