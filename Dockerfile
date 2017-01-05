@@ -47,12 +47,12 @@ mkdir -p /opt/steamer && \
 chown -R steam. /opt/steamer && \
 locale-gen
 
+USER steam
 WORKDIR /opt/steamer/
 RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxf -
 
 # sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
 
-USER steam
 WORKDIR /home/steam/
 
 #USER root
