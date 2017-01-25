@@ -3,6 +3,6 @@
 @ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
 @NoPromptForPassword 1
 login REPLACEME_USERNAME REPLACEME_PASSWORD
-force_install_dir /home/steam/serverfiles/csgo_ds
+force_install_dir REPLACEME_FORCE_INSTALL
 app_update REPLACEME_GID
 quit

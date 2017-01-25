@@ -1,13 +1,14 @@
 #!/bin/bash
 
 sudo chown -R steam. /home/steam
-mkdir -p /home/steam/serverfiles/csgo_ds
+mkdir -p $STEAM_FORCE_INSTALL
 
 cp /assets/steamer.txt /home/steam/
 cd /home/steam
 sed -i "s/REPLACEME_USERNAME/$STEAM_USERNAME/" steamer.txt
 sed -i "s/REPLACEME_PASSWORD/$STEAM_PASSWORD/" steamer.txt
 sed -i "s/REPLACEME_GID/$STEAM_GID/" steamer.txt
+sed -i "s/REPLACEME_FORCE_INSTALL/$STEAM_FORCE_INSTALL/" steamer.txt
 
 cd /opt/steamer
 ./steamcmd.sh +runscript /home/steam/steamer.txt

@@ -9,7 +9,7 @@ help:
 
 build: builddocker
 
-reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GSLT IP PORT STEAM_GID TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
+reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GSLT IP PORT STEAM_GID STEAM_FORCE_INSTALL TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
 
 run: reqs rm homedir rundocker
 
@@ -25,6 +25,7 @@ rundocker:
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
 	$(eval STEAM_GSLT := $(shell cat STEAM_GSLT))
+	$(eval STEAM_FORCE_INSTALL := $(shell cat STEAM_FORCE_INSTALL))
 	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
@@ -38,6 +39,7 @@ rundocker:
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GSLT=$(STEAM_GSLT) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
+	--env STEAM_FORCE_INSTALL=$(STEAM_FORCE_INSTALL) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
 	--env CS_GAME_TYPE=$(CS_GAME_TYPE) \
@@ -53,8 +55,8 @@ rundocker:
 	-t $(TAG)
 
 installdocker:
-	$(eval NAME := $(shell cat NAME))	
-	$(eval HOMEDIR := $(shell cat HOMEDIR))	
+	$(eval NAME := $(shell cat NAME))
+	$(eval HOMEDIR := $(shell cat HOMEDIR))
 	$(eval TAG := $(shell cat TAG))
 	$(eval IP := $(shell cat IP))
 	$(eval PORT := $(shell cat PORT))
@@ -62,6 +64,7 @@ installdocker:
 	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
 	$(eval STEAM_GID := $(shell cat STEAM_GID))
 	$(eval STEAM_GSLT := $(shell cat STEAM_GSLT))
+	$(eval STEAM_FORCE_INSTALL := $(shell cat STEAM_FORCE_INSTALL))
 	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
 	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
 	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
@@ -75,6 +78,7 @@ installdocker:
 	--env STEAM_GID=$(STEAM_GID) \
 	--env STEAM_GSLT=$(STEAM_GSLT) \
 	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
+	--env STEAM_FORCE_INSTALL=$(STEAM_FORCE_INSTALL) \
 	--env IP=$(IP) \
 	--env PORT=$(PORT) \
 	--env CS_GAME_TYPE=$(CS_GAME_TYPE) \
@@ -90,7 +94,7 @@ installdocker:
 	-t $(TAG) /bin/bash
 
 builddocker:
-	$(eval TAG := $(shell cat TAG))	
+	$(eval TAG := $(shell cat TAG))
 	/usr/bin/time -v docker build -t $(TAG) .
 
 beep:
@@ -144,6 +148,10 @@ STEAM_PASSWORD:
 		read -r -p "Enter the steam password you wish to associate with this container [STEAM_PASSWORD]: " STEAM_PASSWORD; echo "$$STEAM_PASSWORD">>STEAM_PASSWORD; cat STEAM_PASSWORD; \
 	done ;
 
+STEAM_FORCE_INSTALL:
+		@while [ -z "$$STEAM_FORCE_INSTALL" ]; do \
+			read -r -p "Enter the force_install_directory value for the game installation [STEAM_FORCE_INSTALL]: " STEAM_FORCE_INSTALL; echo "$$STEAM_FORCE_INSTALL">>STEAM_FORCE_INSTALL; cat STEAM_FORCE_INSTALL; \
+		done ;
 IP:
 	@while [ -z "$$IP" ]; do \
 		read -r -p "Enter the IP Address you wish to assign to this container [IP]: " IP; echo "$$IP">>IP; cat IP; \

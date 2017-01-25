@@ -9,7 +9,7 @@ ENV STEAM_PASSWORD ' '
 
 # Start non-interactive apt
 ENV DEBIAN_FRONTEND noninteractive
-ENV STEAMER_UPDATED 20170104
+ENV STEAMER_UPDATED 20170125
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
