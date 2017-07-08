@@ -93,6 +93,7 @@ installdocker:
 	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR):/home/steam \
+	-v $(DATADIR):/data \
 	-t $(TAG) /bin/bash
 
 builddocker:
@@ -123,6 +124,11 @@ enter:
 HOMEDIR:
 	@while [ -z "$$HOMEDIR" ]; do \
 		read -r -p "Enter the HOMEDIR you wish to associate with this container [HOMEDIR]: " HOMEDIR; echo "$$HOMEDIR">>HOMEDIR; cat HOMEDIR; \
+	done ;
+
+DATADIR:
+	@while [ -z "$$DATADIR" ]; do \
+		read -r -p "Enter the DATADIR you wish to associate with this container [DATADIR]: " DATADIR; echo "$$DATADIR">>DATADIR; cat DATADIR; \
 	done ;
 
 STEAM_USERNAME:
