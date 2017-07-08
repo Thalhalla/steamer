@@ -36,8 +36,7 @@ ENV DEBIAN_FRONTEND interactive
 
 # and override this file with the command to start your server
 COPY assets /assets
-RUN chmod 755 /assets/start.sh && \
-chmod 755 /assets/run.sh && \
+RUN \
 chmod 755 /assets/steamer.txt && \
 useradd -m -s /bin/bash steam && \
 usermod -a -G sudo,video,audio,tty steam && \
