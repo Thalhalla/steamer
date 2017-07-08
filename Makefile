@@ -11,13 +11,14 @@ build: builddocker
 
 reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GSLT IP PORT STEAM_GID STEAM_FORCE_INSTALL TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
 
-run: reqs rm homedir rundocker
+run: reqs rm homedir datadir rundocker
 
-install: reqs rm homedir installdocker
+install: reqs rm homedir datadir installdocker
 
 rundocker:
 	$(eval NAME := $(shell cat NAME))
 	$(eval HOMEDIR := $(shell cat HOMEDIR))
+	$(eval DATADIR := $(shell cat DATADIR))
 	$(eval TAG := $(shell cat TAG))
 	$(eval IP := $(shell cat IP))
 	$(eval PORT := $(shell cat PORT))
@@ -52,6 +53,7 @@ rundocker:
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
 	-v $(HOMEDIR):/home/steam \
+	-v $(DATADIR):/data \
 	-t $(TAG)
 
 installdocker:
@@ -190,6 +192,11 @@ homedir: HOMEDIR
 	-@sudo mkdir -p $(HOMEDIR)/.steam
 	-@sudo mkdir -p $(HOMEDIR)/.local
 	-@sudo chown -R 1000:1000 $(HOMEDIR)
+
+datadir: DATADIR
+	$(eval DATADIR := $(shell cat DATADIR))
+	-@sudo mkdir -p $(DATADIR)
+	-@sudo chown -R 1000:1000 $(DATADIR)
 
 csgo:
 	echo '440'>STEAM_GID

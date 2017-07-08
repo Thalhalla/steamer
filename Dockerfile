@@ -44,8 +44,6 @@ echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
 chown -R steam. /home/steam && \
 mkdir -p /opt/steamer && \
 chown -R steam. /opt/steamer && \
-mkdir -p /config && \
-chown -R steam. /config && \
 mkdir -p /data && \
 chown -R steam. /data && \
 locale-gen
@@ -56,6 +54,6 @@ RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.t
 
 WORKDIR /data
 
-VOLUME /config
+VOLUME /home/steam
 VOLUME /data
 CMD ["/assets/steamer"]

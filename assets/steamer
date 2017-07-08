@@ -1,12 +1,12 @@
 #!/bin/bash
 
 main() {
-  if [ ! -f /config/steamer.txt ]
+  if [ ! -f /home/steamer/steamer.txt ]
     then
       do_steamer_config
   fi
 
-  if [ ! -z ${FORCEUPDATE+x} ] || [ ! -f /config/app_update_date ]
+  if [ ! -z ${FORCEUPDATE+x} ] || [ ! -f /home/steamer/app_update_date ]
     then
       do_app_update
   fi
@@ -25,19 +25,19 @@ startup() {
 do_app_update() {
   mkdir -p /data
   cd /opt/steamer
-  ./steamcmd.sh +runscript /config/steam/steamer.txt
+  ./steamcmd.sh +runscript /home/steamer/steamer.txt
   cd /data
-  date -I > /config/app_update_date
+  date -I > /home/steamer/app_update_date
   sudo chown -R steam. /data
 }
 
 do_steamer_config() {
-  cp /assets/steamer.txt /config
-  cd /config
+  cp /assets/steamer.txt /home/steamer/
+  cd /home/steamer
   sed -i "s/REPLACEME_USERNAME/$STEAM_USERNAME/" steamer.txt
   sed -i "s/REPLACEME_PASSWORD/$STEAM_PASSWORD/" steamer.txt
   sed -i "s/REPLACEME_GID/$STEAM_GID/" steamer.txt
-  sudo chown -R steam. /config
+  sudo chown -R steam. /home/steamer
 }
 
 main "$@"
