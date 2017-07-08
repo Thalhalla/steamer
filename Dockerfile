@@ -45,17 +45,18 @@ echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
 chown -R steam. /home/steam && \
 mkdir -p /opt/steamer && \
 chown -R steam. /opt/steamer && \
+mkdir -p /config && \
+chown -R steam. /config && \
+mkdir -p /data && \
+chown -R steam. /data && \
 locale-gen
 
 USER steam
 WORKDIR /opt/steamer/
 RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxf -
 
-# sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
+WORKDIR /data
 
-WORKDIR /home/steam/
-
-#USER root
-#ENTRYPOINT ["/bin/bash"]
-VOLUME /home/steam/
-CMD ["/bin/bash",  "/assets/start.sh"]
+VOLUME /config
+VOLUME /data
+CMD ["/assets/steamer"]
