@@ -1,0 +1,43 @@
+#!/bin/bash
+
+main() {
+  if [ ! -f /home/steamer/steamer.txt ]
+    then
+      do_steamer_config
+  fi
+
+  if [ ! -z ${FORCEUPDATE+x} ] || [ ! -f /data/steamer_update_date ]
+    then
+      do_app_update
+  fi
+  startup
+}
+
+startup() {
+  while [ 1 ]
+  do
+    eval /assets/run.sh
+    echo restarting
+    sleep 3
+  done
+}
+
+do_app_update() {
+  mkdir -p /data
+  cd /opt/steamer
+  ./steamcmd.sh +runscript /home/steamer/steamer.txt
+  cd /data
+  date -I > /data/steamer_update_date
+  sudo chown -R steam. /data
+}
+
+do_steamer_config() {
+  cp /assets/steamer.txt /home/steamer/
+  cd /home/steamer
+  sed -i "s/REPLACEME_USERNAME/$STEAM_USERNAME/" steamer.txt
+  sed -i "s/REPLACEME_PASSWORD/$STEAM_PASSWORD/" steamer.txt
+  sed -i "s/REPLACEME_GID/$STEAM_GID/" steamer.txt
+  sudo chown -R steam. /home/steamer
+}
+
+main "$@"

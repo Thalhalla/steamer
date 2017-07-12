@@ -9,7 +9,7 @@ ENV STEAM_PASSWORD ' '
 
 # Start non-interactive apt
 ENV DEBIAN_FRONTEND noninteractive
-ENV STEAMER_UPDATED 20170125
+ENV STEAMER_UPDATED 20170708
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
@@ -22,8 +22,9 @@ sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 locale-gen && \
 apt-get install -yqq sudo wget lib32stdc++6 lib32z1 lib32z1-dev net-tools procps \
 libcurl4-gnutls-dev:i386 build-essential gdb mailutils postfix curl wget file \
-lib32ncurses5 libasound2 fail2ban gettext-base \
-gzip bzip2 bsdmainutils python util-linux tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
+lib32ncurses5 libasound2 fail2ban unzip \
+gzip bzip2 bsdmainutils python util-linux \
+tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
 rm -rf /var/lib/apt/lists/*
 # End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
@@ -36,8 +37,7 @@ ENV DEBIAN_FRONTEND interactive
 
 # and override this file with the command to start your server
 COPY assets /assets
-RUN chmod 755 /assets/start.sh && \
-chmod 755 /assets/run.sh && \
+RUN \
 chmod 755 /assets/steamer.txt && \
 useradd -m -s /bin/bash steam && \
 usermod -a -G sudo,video,audio,tty steam && \
@@ -45,17 +45,16 @@ echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
 chown -R steam. /home/steam && \
 mkdir -p /opt/steamer && \
 chown -R steam. /opt/steamer && \
+mkdir -p /data && \
+chown -R steam. /data && \
 locale-gen
 
 USER steam
 WORKDIR /opt/steamer/
 RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxf -
 
-# sudo install -m=755 linux32/steamcmd /usr/local/bin/steamcmd
+WORKDIR /data
 
-WORKDIR /home/steam/
-
-#USER root
-#ENTRYPOINT ["/bin/bash"]
-VOLUME /home/steam/
-CMD ["/bin/bash",  "/assets/start.sh"]
+VOLUME /home/steam
+VOLUME /data
+CMD ["/assets/steamer"]
