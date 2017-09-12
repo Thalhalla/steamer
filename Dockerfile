@@ -1,15 +1,12 @@
 FROM ubuntu:xenial
 MAINTAINER Josh Cox <josh 'at' webhosting coop>
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-# override these variables in with the prompts
-ENV STEAM_USERNAME anonymous
-ENV STEAM_PASSWORD ' '
-
-# Start non-interactive apt
-ENV DEBIAN_FRONTEND noninteractive
-ENV STEAMER_UPDATED 20170708
+ENV LANG=en_US.UTF-8 \
+  LANGUAGE=en_US.UTF-8 \
+  STEAM_USERNAME=anonymous \
+  STEAM_PASSWORD=' '
+  DEBIAN_FRONTEND=noninteractive \
+  STEAMER_UPDATED=20170911
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
