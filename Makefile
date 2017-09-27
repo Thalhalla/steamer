@@ -37,7 +37,7 @@ rundocker:
 	--group-add audio \
 	--group-add video \
 	-t $(TAG) \
-	ls -lh /usr/games/
+	steam
 
 installdocker:
 	$(eval NAME := $(shell cat NAME))	

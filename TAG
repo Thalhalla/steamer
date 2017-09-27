@@ -1,1 +1,1 @@
-thalhalla/steamer:steamgui-xenial
+thalhalla/steamer:steamgui
