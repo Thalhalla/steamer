@@ -4,12 +4,13 @@ MAINTAINER Josh Cox <josh 'at' webhosting coop>
 ENV LANG=en_US.UTF-8 \
   LANGUAGE=en_US.UTF-8 \
   STEAM_USERNAME=anonymous \
-  STEAM_PASSWORD=' '
+  STEAM_PASSWORD=' ' \
   DEBIAN_FRONTEND=noninteractive \
   STEAMER_UPDATED=20170924
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
+
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F24AEA9FB05498B7 && \
 dpkg --add-architecture i386 && \
 apt-get -yqq update && \
@@ -23,6 +24,7 @@ lib32ncurses5 libasound2 fail2ban unzip gettext-base \
 gzip bzip2 bsdmainutils python util-linux \
 tmux byobu lib32gcc1 libstdc++6 libstdc++6:i386 && \
 rm -rf /var/lib/apt/lists/*
+
 # End non-interactive apt
 ENV DEBIAN_FRONTEND interactive
 
