@@ -9,7 +9,7 @@ help:
 
 build: builddocker
 
-reqs: STEAM_USERNAME STEAM_PASSWORD STEAM_GSLT IP PORT STEAM_GID TAG IP HOMEDIR CS_GAME_MODE CS_GAME_TYPE CS_INITIAL_MAP CS_MAP_GROUP
+reqs: HOMEDIR
 
 run: reqs rm homedir rundocker
 
@@ -19,38 +19,25 @@ rundocker:
 	$(eval NAME := $(shell cat NAME))
 	$(eval HOMEDIR := $(shell cat HOMEDIR))
 	$(eval TAG := $(shell cat TAG))
-	$(eval IP := $(shell cat IP))
-	$(eval PORT := $(shell cat PORT))
-	$(eval STEAM_USERNAME := $(shell cat STEAM_USERNAME))
-	$(eval STEAM_PASSWORD := $(shell cat STEAM_PASSWORD))
-	$(eval STEAM_GID := $(shell cat STEAM_GID))
-	$(eval STEAM_GSLT := $(shell cat STEAM_GSLT))
-	$(eval CS_GAME_TYPE := $(shell cat CS_GAME_TYPE))
-	$(eval CS_GAME_MODE := $(shell cat CS_GAME_MODE))
-	$(eval CS_MAP_GROUP := $(shell cat CS_MAP_GROUP))
-	$(eval CS_INITIAL_MAP := $(shell cat CS_INITIAL_MAP))
 	@docker run --name=$(NAME) \
 	-d \
 	--cidfile="steamerCID" \
 	--env USER=steam \
-	--env STEAM_USERNAME=$(STEAM_USERNAME) \
-	--env STEAM_PASSWORD=$(STEAM_PASSWORD) \
-	--env STEAM_GID=$(STEAM_GID) \
-	--env STEAM_GSLT=$(STEAM_GSLT) \
-	--env STEAM_GUARD_CODE=$(STEAM_GUARD_CODE) \
-	--env IP=$(IP) \
 	--env PORT=$(PORT) \
-	--env CS_GAME_TYPE=$(CS_GAME_TYPE) \
-	--env CS_GAME_MODE=$(CS_GAME_MODE) \
-	--env CS_MAP_GROUP=$(CS_MAP_GROUP) \
-	--env CS_INITIAL_MAP=$(CS_INITIAL_MAP) \
-	-p $(IP):26901:26901/udp \
-	-p $(IP):27005:27005/udp \
-	-p $(IP):27020:27020/udp \
-	-p $(IP):$(PORT):$(PORT) \
-	-p $(IP):$(PORT):$(PORT)/udp \
 	-v $(HOMEDIR):/home/steam \
-	-t $(TAG)
+	--net host \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-e DISPLAY=unix$(DISPLAY) \
+	-v /dev/shm:/dev/shm \
+	-v /etc/hosts:/etc/hosts \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
+	-t $(TAG) \
+	ls -lh /usr/games/
 
 installdocker:
 	$(eval NAME := $(shell cat NAME))	
@@ -87,6 +74,18 @@ installdocker:
 	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
 	-v $(HOMEDIR):/home/steam \
+	--net host \
+	-v /etc/localtime:/etc/localtime:ro \
+	-v /tmp/.X11-unix:/tmp/.X11-unix \
+	-e DISPLAY=unix$(DISPLAY) \
+	-v /dev/shm:/dev/shm \
+	-v /etc/hosts:/etc/hosts \
+	-v $(TMP):/tmp \
+	--device /dev/snd \
+	--device /dev/dri \
+	--device /dev/bus/usb \
+	--group-add audio \
+	--group-add video \
 	-t $(TAG) /bin/bash
 
 builddocker:
