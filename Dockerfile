@@ -6,7 +6,7 @@ ENV LANG=en_US.UTF-8 \
   STEAM_USERNAME=anonymous \
   STEAM_PASSWORD=' ' \
   DEBIAN_FRONTEND=noninteractive \
-  STEAMER_UPDATED=20171022
+  STEAMER_UPDATED=20171029
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
