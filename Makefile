@@ -52,7 +52,7 @@ rundocker:
 	-p $(IP):27020:27020/udp \
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
-	-v $(HOMEDIR):/home/steam \
+	-v $(HOMEDIR):/home/steamer \
 	-v $(DATADIR):/data \
 	-t $(TAG)
 
@@ -92,7 +92,7 @@ installdocker:
 	-p $(IP):$(PORT):$(PORT) \
 	-p $(IP):$(PORT):$(PORT)/udp \
 	-p $(IP):27020:27020/udp \
-	-v $(HOMEDIR):/home/steam \
+	-v $(HOMEDIR):/home/steamer \
 	-v $(DATADIR):/data \
 	-t $(TAG) /bin/bash
 

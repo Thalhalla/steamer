@@ -38,22 +38,22 @@ ENV DEBIAN_FRONTEND interactive
 COPY assets /assets
 RUN \
 chmod 755 /assets/steamer.txt && \
-useradd -m -s /bin/bash steam && \
-usermod -a -G sudo,video,audio,tty steam && \
+useradd -m -s /bin/bash steamer && \
+usermod -a -G sudo,video,audio,tty steamer && \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
-chown -R steam. /home/steam && \
+chown -R steamer. /home/steamer && \
 mkdir -p /opt/steamer && \
-chown -R steam. /opt/steamer && \
+chown -R steamer. /opt/steamer && \
 mkdir -p /data && \
-chown -R steam. /data && \
+chown -R steamer. /data && \
 locale-gen
 
-USER steam
+USER steamer
 WORKDIR /opt/steamer/
 RUN curl -sqL 'https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz' | tar zxf -
 
 WORKDIR /data
 
-VOLUME /home/steam
+VOLUME /home/steamer
 VOLUME /data
 CMD ["/assets/steamer"]
