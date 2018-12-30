@@ -7,7 +7,7 @@ ENV LANG=en_US.UTF-8 \
   STEAM_PASSWORD=' ' \
   DEBIAN_FRONTEND=noninteractive \
   STEAMER_UPDATED=20181209 \
-  STEAM_FORCE_INSTALL /data
+  STEAM_FORCE_INSTALL=/data
 #ENV LC_ALL en_US.UTF-8
 #APT
 COPY sources.list /etc/apt/sources.list.d/thalhalla.list
